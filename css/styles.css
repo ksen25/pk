@@ -1,0 +1,667 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+    background: url(../img/fon.jpg);
+}
+header img{
+    width: 100px;
+    vertical-align: middle;
+}
+.blur{
+    display: flex;
+    color: white;
+    gap: 33%;
+    background: rgba(119,221,231, 0.2); 
+    backdrop-filter: blur(8px); 
+    padding: 20px;
+    margin: -10px -8px 10px;
+}
+.form_block{
+    width: 15%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+input{
+    width: 91% !important;
+    height: 8px;
+}
+input, select, button, .button-print {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+button, .button-print {
+    width: 100%;
+    display:inline-block;
+    background-color: #5081c6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #549fff;
+    box-shadow: 1px 1px 1px #999;
+}
+.button-print{
+    text-align: center;
+    width: 95% !important;
+    background-color: #549fff !important;
+    text-decoration: none;
+}
+.button-print:hover {
+    background-color: #5081c6;
+    box-shadow: 1px 1px 1px #999;
+}
+.btn-primary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 9999;
+    max-width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.message.success {
+    background-color: #4caf50; /* зеленый */
+}
+
+.message.error {
+    background-color: #f44336; /* красный */
+}
+
+.chekbox-group {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.chekbox-group input[type="checkbox"] {
+    cursor: pointer;
+    vertical-align: middle;
+    width: 25px !important; 
+    height: 24px !important; 
+    margin-right: 10px;
+}
+
+.chekbox-group label {
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    color: #333;
+    padding-bottom: 6%;
+}
+
+
+input[type="checkbox"].checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 30px;
+    height: 25px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="checkbox"].checkbox:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+input[type="checkbox"].checkbox:checked::before {
+    content: '✔';
+    position:absolute;
+    bottom: 0;
+    left: 2px;
+    color: white;
+    font-size: 18px;
+}
+.checkbox-original{
+    height: 17px !important;
+    cursor: pointer;
+}
+h5{
+    font-size: 18px;
+    margin: 10px 0 10px 0;
+}
+.form-label{
+    font-size: 18px;
+    font-weight: bold;
+}
+.form-label span{
+    font-size: 16px !important;
+    color: black;
+    font-weight: normal;
+}
+span{
+    color: red;
+    font-weight: bolder;
+}
+.nuzhda{
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.nuzhda p{
+    font-size: 18px;
+    padding-bottom: 5%;
+}
+.sogl{
+    padding-bottom: 2%;
+}
+#prof-remaining, #spec-remaining{
+    color: red;
+    font-weight: 600;
+}
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup button {
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background: #0056b3;
+}
+td.snils, th.snils {
+    width: 120px;
+}
+td.phone, th.phone {
+    width: 150px;
+}
+td.class {
+    text-align: center;
+}
+td.date_bd, th.date_bd {
+    width: 100px;
+}
+.socr{
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-sizing: border-box;
+}
+.abit-border-top td,
+.abit-border-bottom td {
+    padding: 0;
+}
+
+table, td, th{
+    border: 1px solid #5081c6;  
+}
+.th1{
+    border-top-left-radius: 8px;
+}
+.th2{
+    width: 110px;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #7ba6e7;
+    color: white;
+}
+
+textarea {
+    padding: 10px;
+    width: 89%;
+    max-width: 89%;
+    max-height: 100px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+.dostizh span{
+    font-size: 16px !important;
+    color: black;
+    font-weight: normal;
+}
+sup{
+    color: red;
+    font-size: 18px;
+}
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 25px !important;
+    height: 25px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translate(-52%, -34%);
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+input[type="radio"]:hover {
+    border-color: #549fff;
+}
+
+.radio-label {
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    padding-bottom: 7%;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+/* Modal styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    min-width: 300px; /* Минимальная ширина */
+    max-width: 600px; /* Максимальная ширина */
+    max-height: 800px;
+    overflow-y: auto;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.notes-textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 200px;
+    resize: vertical;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    color: red;
+    box-sizing: border-box;
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.td-id{
+    text-align: center;
+}
+.td-id-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.forms_all{
+    display: flex;
+}
+.unfilter{
+    background-color: #e70d11;
+    width: 200px;
+    margin-bottom: 0px;
+}
+.unfilter:hover{
+    background-color: #ff0004;
+}
+.filter-cont-btn{
+    background: white;
+    padding: 20px;
+    margin-right: 50px;
+    border-radius: 10px;
+    width: 200px;
+    height: 70%;
+    text-align: left;
+    position: relative;
+}
+/* Стили для кнопки открытия фильтра */
+.filter-btn {
+    margin-left: 50px;
+    padding: 10px 20px;
+    width: 100px !important;
+    background-color: #5081c6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filter-btn:hover {
+    background-color: #549fff;
+}
+
+.filter-popup {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Содержимое всплывающего окна */
+.filter-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: left;
+    position: relative;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+
+/* Заголовки фильтра */
+h3 {
+    text-align: center;
+}
+
+/* Стиль для чекбоксов */
+.filter-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.filter-checkbox {
+    margin-right: 10px;
+}
+
+/* Кнопка применения фильтра */
+.apply-filter {
+    background-color: #5081c6;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.apply-filter:hover {
+    background-color: #549fff;
+}
+.filter-search {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.filter-label span{
+    color: #000000;
+    font-weight: normal;
+}
+.no-zayav {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 650px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.no-zayav p{
+    margin: auto;
+    text-align: center; 
+    font-size: 28px; 
+    color: red; 
+    font-weight: bolder
+}
+.search-and-filter {
+    display: flex;
+    position: sticky; /* Используем sticky для "липкости" */
+    top: 0; /* Закрепляем блок вверху, когда он достигнет верхней части экрана */
+    left: 0;
+    width: 99%;
+    border: none;
+    border-radius: 5px;
+    background-image: url(../img/fon.jpg);
+    z-index: 500; /* Убедитесь, что блок будет поверх других элементов */
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для выделения */
+}
+#searchContainer {
+    display: flex;
+    justify-content: flex-end; /* Перемещаем в крайний правый угол */
+    margin-bottom: 10px; /* Отступ перед таблицей */
+    width: 100%;
+}
+
+#searchInput {
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px !important; /* Можно изменить ширину */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #007bff;
+    box-shadow: 2px 2px 10px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+.pagination-filter {
+    display: inline-flex;
+    justify-content: center;
+    position: absolute; /* Абсолютное позиционирование */
+    bottom: 10px; /* Отступ снизу */
+    right: 10px; /* Отступ справа */
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.pagination-filter a{
+    padding: 8px 12px;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #5081c6;
+    border: 1px solid #5081c6;
+    border-radius: 5px;
+}
+
+.pagination-filter a.active {
+    background-color: #5081c6;
+    color: white;
+}
+
+.pagination-filter a:hover {
+    background-color: #549fff;
+    color: white;
+}
+.filter-otchet{
+    display: flex;
+}
+.otchet{
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: left;
+    position: relative;
+    overflow-y: auto;
+    max-height: 100%;
+}
+.adress-input{
+    width: 85% !important;
+}
+.adress-h{
+    font-size: 18px;
+    text-align: left;
+}
+.adresses{
+    display: flex;
+}
+.adresses-sovp{
+    display: flex;
+    cursor: pointer;
+}
+.check-adress{
+    cursor: pointer;
+    vertical-align: middle;
+    width: 25px !important; 
+    height: 24px !important; 
+    margin-right: 10px;
+}
+.reit{
+    border: 1px #5081c6 solid;
+    border-radius: 5px;
+    padding: 5px 5px 0px;
+    margin-bottom: 15px;
+}
+.form_auth{
+    width: 15%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.form_auth label{
+    display: flex;
+}
+.form_auth input{
+    vertical-align: middle;
+}
+.form_auth_h{
+    color: #ffff;
+    text-align: center;
+}
+
+.btn-warning {
+    background-color: #5081c6;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.btn-warning:hover {
+    background-color: #549fff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+}
