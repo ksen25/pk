@@ -46,6 +46,24 @@ function checkDuplicateSpecialties($pdo, $abitId, $selectedSpecialties) {
     }
 }
 
+// Валидация даты: формат YYYY-MM-DD, существующая дата, не в будущем
+function validateDateNotFuture($value, $label) {
+    if (empty($value)) {
+        die(json_encode(['success' => false, 'error' => "Поле \"$label\" обязательно для заполнения"]));
+    }
+    $dt = DateTime::createFromFormat('Y-m-d', $value);
+    $errors = DateTime::getLastErrors();
+    if (!$dt || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
+        die(json_encode(['success' => false, 'error' => "Поле \"$label\" содержит некорректную дату"]));
+    }
+    $dt->setTime(0, 0, 0);
+    $today = new DateTime('today');
+    if ($dt > $today) {
+        die(json_encode(['success' => false, 'error' => "Поле \"$label\" не может быть датой в будущем"]));
+    }
+    return $dt->format('Y-m-d');
+}
+
 // Основные параметры
 $maxApplications = 5;
 $snils = isset($_POST['snils']) ? trim($_POST['snils']) : null;
@@ -190,6 +208,11 @@ try {
     } elseif (is_numeric($selected_language)) {
         $in_yaz = (int)$selected_language;
     }
+
+    // Валидация дат (чтобы не сохранить некорректные значения)
+    $birthdate = validateDateNotFuture($_POST['birthdate'] ?? '', 'Дата рождения');
+    $issueDate = validateDateNotFuture($_POST['issue_date'] ?? '', 'Когда выдан (паспорт)');
+    $issueDateDocObr = validateDateNotFuture($_POST['issueDateDocObr'] ?? '', 'Когда выдан (документ об образовании)');
     
     // 3. Вставка абитуриента с проверкой параметров
     try {
@@ -209,17 +232,17 @@ try {
             ':otchestvo' => $_POST['patronymic'] ?? '',
             ':snils' => $snils ?? '',
             ':phone' => $_POST['phone'] ?? '',
-            ':date_bd' => $_POST['birthdate'] ?? '',
+            ':date_bd' => $birthdate,
             ':document' => $_POST['identity_document'] ?? '',
             ':ser_num' => str_replace(' ', '', $_POST['series_number'] ?? ''),
-            ':date_vidachi_doc' => $_POST['issue_date'] ?? '',
+            ':date_vidachi_doc' => $issueDate,
             ':kem_vidan_doc' => $_POST['issued_by'] ?? '',
             ':polis' => $_POST['insurance_policy_number'] ?? '',
             ':komp_polis' => $_POST['insurance_company'] ?? '',
             ':email' => $_POST['email'] ?? '',
             ':id_doc_obr' => $_POST['foreign_documents'][0] ?? null,
             ':num_doc_obr' => $_POST['seriesNumberDocObr'] ?? '',
-            ':date_doc_obr' => $_POST['issueDateDocObr'] ?? '',
+            ':date_doc_obr' => $issueDateDocObr,
             ':kem_doc_obr' => $_POST['issuedByDocObr'] ?? '',
             ':in_yaz' => $in_yaz,
             ':dr_in_yaz' => $dr_in_yaz,
