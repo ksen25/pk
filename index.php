@@ -11,9 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['abit_login'])) {
         header("Location: pages/application.php");
         exit();
-    } elseif (isset($_POST['admin_login'])) {
-        header("Location: pages/administrator.php");
-        exit();
     } elseif (isset($_POST['secretary_login'])) {  
         $login = trim($_POST['login'] ?? '');
         $password = trim($_POST['password'] ?? '');
@@ -51,11 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h3>Вход для абитуриента</h3>       
             <button type="submit" name="abit_login">Войти как абитуриент</button>
         </form>
-
-        <form method="POST">
-            <h3>Вход для администратора</h3>       
-            <button type="submit" name="admin_login">Войти как администратор</button>
-        </form>
         
         <form method="POST">
             <h3>Вход для секретаря</h3>
@@ -68,6 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" name="secretary_login">Войти как секретарь</button>
+        </form>
+
+        <form action="pages/administrator.php" method="get">
+            <h3>Вход для администратора</h3>
+            <button type="submit">Войти как администратор</button>
         </form>
     </div>
     
