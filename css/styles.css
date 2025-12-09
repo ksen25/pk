@@ -642,6 +642,71 @@ h3 {
     background-color: #549fff;
 }
 
+.btn-danger {
+    background-color: #d9534f;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.issued-row {
+    background-color: #fff3cd !important; /* светло-желтый для отметки выдачи */
+}
+
+.issued-cell {
+    background-color: #fff3cd !important;
+}
+
+.issued-legend {
+    margin: 10px 0;
+    padding: 10px;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #6c4a00;
+    border-radius: 4px;
+}
+
+.issued-label {
+    font-size: 12px;
+    color: #8a6d3b;
+    margin-bottom: 4px;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.sortable:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -664,4 +729,55 @@ h3 {
 
 .btn-primary:hover {
     background-color: #0069d9;
+}
+/* Стили для распределения по группам */
+.applicants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+/* Контейнер для групп в первом столбце */
+.groups-container {
+    margin: 8px 0;
+}
+
+/* Минималистичный бейдж группы в первом столбце */
+.group-badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    border-left: 2px solid #5a6268;
+    font-size: 12px;
+}
+
+.group-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.group-spec {
+    font-size: 10px;
+    color: #6c757d;
+    font-style: italic;
+}
+/* Адаптируем ширину столбцов */
+#table_zayav {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#table_zayav th:nth-child(1),
+#table_zayav td:nth-child(1) {
+    width: 200px;
+}
+
+#table_zayav th:nth-child(7),
+#table_zayav td:nth-child(7) {
+    width: 200px;
 }
