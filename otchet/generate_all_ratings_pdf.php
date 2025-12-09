@@ -157,6 +157,7 @@ while ($spec = $result->fetch_assoc()) {
         FROM abit
         JOIN zayav ON abit.id_abit = zayav.id_abitur
         WHERE zayav.id_spec_prof = ?
+          AND (zayav.issue_note IS NULL OR zayav.issue_note NOT LIKE 'Документы выданы%')
         ORDER BY 
             zayav.original DESC,
             is_priority DESC,

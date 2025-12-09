@@ -38,6 +38,16 @@ function getDocumentType($conn, $docId) {
 }
 
 function checkIssueMark($conn, $abitId) {
+    // Ищем отметку "Документы выданы ..." в issue_note
+    $stmt = $conn->prepare("SELECT issue_note FROM zayav WHERE id_abitur = ? AND issue_note LIKE 'Документы выданы%' ORDER BY date DESC LIMIT 1");
+    $stmt->bind_param("i", $abitId);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_assoc();
+    if (!empty($res['issue_note'])) {
+        return $res['issue_note'];
+    }
+
+    // Фолбэк: если заявлений нет, ставим дефолтную отметку
     $stmt = $conn->prepare("SELECT COUNT(*) as cnt FROM zayav WHERE id_abitur = ?");
     $stmt->bind_param("i", $abitId);
     $stmt->execute();
@@ -46,31 +56,12 @@ function checkIssueMark($conn, $abitId) {
 
 
 function filterComment($conn, $abitId) {
-    // Получаем все комментарии для данного абитуриента
-    $stmt = $conn->prepare("SELECT comment FROM zayav WHERE id_abitur = ?");
+    // Берём самое свежее примечание из comment (без отметок о выдаче, т.к. они в issue_note)
+    $stmt = $conn->prepare("SELECT comment FROM zayav WHERE id_abitur = ? AND comment IS NOT NULL ORDER BY date DESC LIMIT 1");
     $stmt->bind_param("i", $abitId);
     $stmt->execute();
-    $result = $stmt->get_result();
-    
-    $foundComments = [];
-    
-    while ($row = $result->fetch_assoc()) {
-        $comment = $row['comment'] ?? '';
-        
-        if (!empty($comment)) {
-            // Проверяем наличие ключевых слов в комментарии
-            $hasGu = stripos($comment, 'гу') !== false;
-            $hasPreviousYears = stripos($comment, 'прошлых лет') !== false;
-            
-            // Если найден хотя бы один ключевой слово, добавляем комментарий
-            if ($hasGu || $hasPreviousYears) {
-                $foundComments[] = $comment;
-            }
-        }
-    }
-    
-    // Возвращаем все найденные комментарии через разделитель
-    return !empty($foundComments) ? implode('; ', $foundComments) : '';
+    $row = $stmt->get_result()->fetch_assoc();
+    return $row['comment'] ?? '';
 }
 
 // Создание Excel-файла
