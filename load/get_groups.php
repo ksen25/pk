@@ -14,10 +14,15 @@ if (!$conn) {
 }
 
 // Проверяем, что параметры переданы
-if (!$spec_id || !$class || !$forma) {
+if (!$spec_id || $class === '' || $forma === '') {
+    error_log("Параметры: spec_id=$spec_id, class=$class, forma=$forma");
     echo json_encode(['groups' => [], 'error' => 'Не указаны все параметры']);
     exit;
 }
+
+// Преобразуем параметры к целым числам
+$class = (int)$class;
+$forma = (int)$forma;
 
 // Получаем группы для выбранной специальности, класса и формы обучения
 $stmt = $conn->prepare("SELECT id, name FROM `groups` WHERE id_spec_prof = ? AND class = ? AND forma_obuch = ? ORDER BY name");

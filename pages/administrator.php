@@ -471,8 +471,12 @@ document.getElementById('specForGroup').addEventListener('change', function() {
   
   if (!specId) return;
   
+  // Проверяем, что атрибуты существуют
+  const classValue = classNum !== null ? classNum : '';
+  const formaValue = forma !== null ? forma : '';
+  
   // Загружаем группы для выбранной специальности
-  fetch('load/get_groups.php?spec_id=' + specId + '&class=' + classNum + '&forma=' + forma)
+  fetch('load/get_groups.php?spec_id=' + specId + '&class=' + classValue + '&forma=' + formaValue)
     .then(response => response.json())
     .then(data => {
       const groupSelect = document.getElementById('existingGroup');
