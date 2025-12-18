@@ -507,7 +507,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     searchInput.addEventListener("input", function () {
         const query = this.value.toLowerCase().trim();
-          
+  
+  // ОТП АВКА AJAX ЗАПРОСА НА СЕРВЕР
+  const urlParams = new URLSearchParams(window.location.search);
+  if (this.value.trim() !== '') {
+    urlParams.set('search', this.value.trim());
+  } else {
+    urlParams.delete('search');
+  }
+  urlParams.set('page', '1'); // Сбрасываем на первую страницу
+  
+  // Выполняем AJAX запрос
+  fetch('administrator.php?' + urlParams.toString() + '&ajax=1')
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      // Обновляем таблицу
+      const newTable = doc.querySelector('table#table_zayav');
+      const oldTable = document.querySelector('table#table_zayav');
+      if (newTable && oldTable) {
+        oldTable.innerHTML = newTable.innerHTML;
+      }
+      
+      // Обновляем пагинацию
+      const newPagination = doc.querySelector('.pagination-filter');
+      const oldPagination = document.querySelector('.pagination-filter');
+      if (newPagination && oldPagination) {
+        oldPagination.innerHTML = newPagination.innerHTML;
+      }
+    })
+    .catch(error => console.error('Error:', error));          
   // Основное исправление: сброс пагинации на 1 страницу
   const paginationItems = document.querySelectorAll('.pagination-filter a, .pagination-filter button');
   paginationItems.forEach(item => {
