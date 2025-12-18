@@ -507,7 +507,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     searchInput.addEventListener("input", function () {
         const query = this.value.toLowerCase().trim();
-
+        
+// Устанавливаем страницу 1 на сервере
+  const urlParams = new URLSearchParams(window.location.search);
+  if (query !== '') {
+    urlParams.set('search', query);
+  } else {
+    urlParams.delete('search');
+  }
+  urlParams.set('page', '1'); // Основное исправление
         const rows = document.querySelectorAll("#table_zayav tbody tr");
         let currentBlock = [];
         let currentFio = "";
