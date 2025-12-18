@@ -18,11 +18,6 @@ $conn->set_charset("utf8");
 if ($conn->connect_error) {
     die("Ошибка подключения: " . $conn->connect_error);
 }
-// ===== ПАРАМЕТРЫ ПОИСКА =====
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$limit = 5;
-$page = isset($_GET['page']) ? max(intval($_GET['page']), 1) : 1;
-$offset = ($page - 1) * $limit;
 
 // Гарантируем наличие поля issue_note для отметок "Документы выданы"
 $colCheckIssue = $conn->query("SHOW COLUMNS FROM zayav LIKE 'issue_note'");
@@ -136,7 +131,7 @@ WHERE 1
 " . (!empty($specTitleFilter) ? " AND zayav.id_spec_prof IN (" . implode(",", $specTitleFilter) . ")" : "") . 
 (!empty($professionFilter) ? " AND zayav.id_spec_prof IN (" . implode(",", $professionFilter) . ")" : "") . 
 (!empty($dateFrom) ? " AND DATE(zayav.date) >= '$dateFrom'" : "") . 
-(!empty($dateTo) ? " AND DATE(zayav.date) <= '$dateTo'" : "") .$sqlWhere . "
+(!empty($dateTo) ? " AND DATE(zayav.date) <= '$dateTo'" : "") . "
 GROUP BY abit.id_abit, abit.familiya, abit.imya, abit.otchestvo, abit.snils, abit.date_bd
 ORDER BY latest_date DESC
 LIMIT ? OFFSET ?
@@ -507,64 +502,51 @@ if ($res) {
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    if (!searchInput) return;
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
 
-    let searchTimer = null;
+    searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
 
-    searchInput.addEventListener('input', function() {
-        clearTimeout(searchTimer);
-        const query = this.value.trim();
-        
-        searchTimer = setTimeout(() => {
-            performAjaxSearch(query);
-        }, 500);
+        const rows = document.querySelectorAll("#table_zayav tbody tr");
+        let currentBlock = [];
+        let currentFio = "";
+
+        rows.forEach(row => {
+
+            // Начало блока абитуриента
+            if (row.classList.contains("abit-border-top")) {
+                currentBlock = [row];
+                currentFio = "";
+                return;
+            }
+
+            // Основная строка абитуриента
+            if (row.classList.contains("abit-row")) {
+                currentFio = row.dataset.fio || "";
+                currentBlock.push(row);
+                return;
+            }
+
+            // Конец блока
+            if (row.classList.contains("abit-border-bottom")) {
+                currentBlock.push(row);
+
+                const show = currentFio.includes(query);
+
+                currentBlock.forEach(r => {
+                    r.style.display = show ? "" : "none";
+                });
+
+                currentBlock = [];
+                currentFio = "";
+                return;
+            }
+
+            // Промежуточные строки (заявления)
+            currentBlock.push(row);
+        });
     });
-
-    async function performAjaxSearch(query) {
-        // Получаем текущие параметры
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (query) {
-            urlParams.set('search', query);
-        } else {
-            urlParams.delete('search');
-        }
-        
-        urlParams.set('page', '1');
-        urlParams.set('ajax', '1'); // Маркер AJAX-запроса
-        
-        try {
-            const response = await fetch('administrator.php?' + urlParams.toString());
-            const html = await response.text();
-            
-            // Парсим HTML и обновляем только таблицу и пагинацию
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            // Обновляем таблицу
-            const newTable = doc.querySelector('table#tablezayav');
-            const oldTable = document.querySelector('table#tablezayav');
-            if (newTable && oldTable) {
-                oldTable.innerHTML = newTable.innerHTML;
-            }
-            
-            // Обновляем пагинацию
-            const newPagination = doc.querySelector('.pagination-filter');
-            const oldPagination = document.querySelector('.pagination-filter');
-            if (newPagination && oldPagination) {
-                oldPagination.innerHTML = newPagination.innerHTML;
-            }
-            
-            // Обновляем URL без перезагрузки
-            urlParams.delete('ajax');
-            window.history.replaceState({}, '', 'administrator.php?' + urlParams.toString());
-            
-        } catch (error) {
-            console.error('Ошибка поиска:', error);
-        }
-    }
 });
 
 // Открытие модального окна распределения
