@@ -150,37 +150,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $limit, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
-// ===== ПОИСК ПO ФАМИЛИИ/ИМЕНИ/ОТЧЕСТВУ =====
-$whereConditions = [];
-
-if ($search) {
-    $escapedSearch = '%' . $conn->real_escape_string(mb_strtolower($search)) . '%';
-    $searchConditions = [
-        "LOWER(abit.familiya) LIKE '" . $escapedSearch . "'",
-        "LOWER(abit.imya) LIKE '" . $escapedSearch . "'",
-        "LOWER(abit.otchestvo) LIKE '" . $escapedSearch . "'",
-        "abit.snils LIKE '" . $escapedSearch . "'"
-    ];
-    $whereConditions[] = "(" . implode(" OR ", $searchConditions) . ")";
-}
-
-if (!empty($specTitleFilter)) {
-    $whereConditions[] = "zayav.idspecprof IN (" . implode(",", $specTitleFilter) . ")";
-}
-
-if (!empty($professionFilter)) {
-    $whereConditions[] = "zayav.idspecprof IN (" . implode(",", $professionFilter) . ")";
-}
-
-if (!empty($dateFrom) && !empty($dateTo)) {
-    $whereConditions[] = "DATE(zayav.date) BETWEEN '" . $conn->real_escape_string($dateFrom) . "' AND '" . $conn->real_escape_string($dateTo) . "'";
-} elseif (!empty($dateFrom)) {
-    $whereConditions[] = "DATE(zayav.date) >= '" . $conn->real_escape_string($dateFrom) . "'";
-} elseif (!empty($dateTo)) {
-    $whereConditions[] = "DATE(zayav.date) <= '" . $conn->real_escape_string($dateTo) . "'";
-}
-
-$sqlWhere = !empty($whereConditions) ? "AND " . implode(" AND ", $whereConditions) : "";
 
 // Подсчёт общего количества записей С УЧЁТОМ ФИЛЬТРОВ
 $sqlCount = "
