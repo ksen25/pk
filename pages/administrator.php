@@ -136,7 +136,7 @@ WHERE 1
 " . (!empty($specTitleFilter) ? " AND zayav.id_spec_prof IN (" . implode(",", $specTitleFilter) . ")" : "") . 
 (!empty($professionFilter) ? " AND zayav.id_spec_prof IN (" . implode(",", $professionFilter) . ")" : "") . 
 (!empty($dateFrom) ? " AND DATE(zayav.date) >= '$dateFrom'" : "") . 
-(!empty($dateTo) ? " AND DATE(zayav.date) <= '$dateTo'" : "") . "
+(!empty($dateTo) ? " AND DATE(zayav.date) <= '$dateTo'" : "") .$sqlWhere . "
 GROUP BY abit.id_abit, abit.familiya, abit.imya, abit.otchestvo, abit.snils, abit.date_bd
 ORDER BY latest_date DESC
 LIMIT ? OFFSET ?
