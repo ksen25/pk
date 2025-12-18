@@ -507,15 +507,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     searchInput.addEventListener("input", function () {
         const query = this.value.toLowerCase().trim();
+          
+  // Основное исправление: сброс пагинации на 1 страницу
+  const paginationItems = document.querySelectorAll('.pagination-filter a, .pagination-filter button');
+  paginationItems.forEach(item => {
+    const href = item.getAttribute('href');
+    if ((item.textContent.trim() === '1' && !item.classList.contains('active')) || (href && href.includes('page=1'))) {
+      item.click();
+    }
+  });
         
-// Устанавливаем страницу 1 на сервере
-  const urlParams = new URLSearchParams(window.location.search);
-  if (query !== '') {
-    urlParams.set('search', query);
-  } else {
-    urlParams.delete('search');
-  }
-  urlParams.set('page', '1'); // Основное исправление
         const rows = document.querySelectorAll("#table_zayav tbody tr");
         let currentBlock = [];
         let currentFio = "";
