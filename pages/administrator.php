@@ -532,7 +532,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       
       // Обновляем пагинацию
-      const newPagination = doc.querySelector('.pagination-filter');
+      const newPagination = doc.
+                
+      // Сохраняем значение поля поиска
+      const searchValue = searchInput.value;querySelector('.pagination-filter');
       const oldPagination = document.querySelector('.pagination-filter');
       if (newPagination && oldPagination) {
         oldPagination.innerHTML = newPagination.innerHTML;
@@ -547,6 +550,12 @@ document.addEventListener("DOMContentLoaded", function () {
       item.click();
     }
   });
+              
+      // Восстанавливаем значение поля поиска после обновления
+      const newSearchInput = document.getElementById('searchInput');
+      if (newSearchInput) {
+        newSearchInput.value = searchValue;
+      }
         
         const rows = document.querySelectorAll("#table_zayav tbody tr");
         let currentBlock = [];
